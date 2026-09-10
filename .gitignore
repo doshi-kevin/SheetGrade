@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+
+# uv-managed virtual environment (recreated with `uv sync`; never commit it)
+.venv/
+
+# Tooling caches
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+
+# Fixture outputs the mutation engine generates on demand (keep the manifests, not the generated files)
+tests/fixtures/mutated/*
+!tests/fixtures/mutated/.gitkeep
+
+# Editor/OS
+.vscode/
+.DS_Store
