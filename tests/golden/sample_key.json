@@ -1,0 +1,715 @@
+{
+  "defined_names": [],
+  "dependency_graph": {
+    "Budget!B5": [
+      "B3",
+      "B4"
+    ],
+    "Budget!C5": [
+      "C3",
+      "C4"
+    ],
+    "Budget!D5": [
+      "D3",
+      "D4"
+    ],
+    "Budget!E5": [
+      "E3",
+      "E4"
+    ],
+    "Budget!F3": [
+      "B3:E3"
+    ],
+    "Budget!F4": [
+      "B4:E4"
+    ],
+    "Budget!F5": [
+      "F3",
+      "F4"
+    ]
+  },
+  "sheets": [
+    {
+      "cells": [
+        {
+          "address": {
+            "col": 0,
+            "row": 0
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "STRING",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": 14.0
+          },
+          "formula": null,
+          "merge_range": "A1:E1",
+          "number_format": "General",
+          "value": "Quarterly Budget"
+        },
+        {
+          "address": {
+            "col": 0,
+            "row": 1
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "STRING",
+          "fill_color_rgb": "00D9D9D9",
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "General",
+          "value": "Category"
+        },
+        {
+          "address": {
+            "col": 1,
+            "row": 1
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "STRING",
+          "fill_color_rgb": "00D9D9D9",
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "General",
+          "value": "Q1"
+        },
+        {
+          "address": {
+            "col": 2,
+            "row": 1
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "STRING",
+          "fill_color_rgb": "00D9D9D9",
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "General",
+          "value": "Q2"
+        },
+        {
+          "address": {
+            "col": 3,
+            "row": 1
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "STRING",
+          "fill_color_rgb": "00D9D9D9",
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "General",
+          "value": "Q3"
+        },
+        {
+          "address": {
+            "col": 4,
+            "row": 1
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "STRING",
+          "fill_color_rgb": "00D9D9D9",
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "General",
+          "value": "Q4"
+        },
+        {
+          "address": {
+            "col": 5,
+            "row": 1
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "STRING",
+          "fill_color_rgb": "00D9D9D9",
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "General",
+          "value": "Total"
+        },
+        {
+          "address": {
+            "col": 0,
+            "row": 2
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": "Confirmed against last year's actuals.",
+          "computed_value": null,
+          "data_type": "STRING",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "General",
+          "value": "Revenue"
+        },
+        {
+          "address": {
+            "col": 1,
+            "row": 2
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "NUMBER",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "$#,##0",
+          "value": 1000
+        },
+        {
+          "address": {
+            "col": 2,
+            "row": 2
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "NUMBER",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "$#,##0",
+          "value": 1100
+        },
+        {
+          "address": {
+            "col": 3,
+            "row": 2
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "NUMBER",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "$#,##0",
+          "value": 1200
+        },
+        {
+          "address": {
+            "col": 4,
+            "row": 2
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "NUMBER",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "$#,##0",
+          "value": 1300
+        },
+        {
+          "address": {
+            "col": 5,
+            "row": 2
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "FORMULA",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": "=SUM(B3:E3)",
+          "merge_range": null,
+          "number_format": "General",
+          "value": null
+        },
+        {
+          "address": {
+            "col": 0,
+            "row": 3
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "STRING",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "General",
+          "value": "Expenses"
+        },
+        {
+          "address": {
+            "col": 1,
+            "row": 3
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "NUMBER",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "$#,##0",
+          "value": 700
+        },
+        {
+          "address": {
+            "col": 2,
+            "row": 3
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "NUMBER",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "$#,##0",
+          "value": 750
+        },
+        {
+          "address": {
+            "col": 3,
+            "row": 3
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "NUMBER",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "$#,##0",
+          "value": 800
+        },
+        {
+          "address": {
+            "col": 4,
+            "row": 3
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "NUMBER",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "$#,##0",
+          "value": 820
+        },
+        {
+          "address": {
+            "col": 5,
+            "row": 3
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "FORMULA",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": "=SUM(B4:E4)",
+          "merge_range": null,
+          "number_format": "General",
+          "value": null
+        },
+        {
+          "address": {
+            "col": 0,
+            "row": 4
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "STRING",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": false,
+            "color_rgb": null,
+            "italic": false,
+            "name": "Calibri",
+            "size": 11.0
+          },
+          "formula": null,
+          "merge_range": null,
+          "number_format": "General",
+          "value": "Profit"
+        },
+        {
+          "address": {
+            "col": 1,
+            "row": 4
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "FORMULA",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": "=B3-B4",
+          "merge_range": null,
+          "number_format": "General",
+          "value": null
+        },
+        {
+          "address": {
+            "col": 2,
+            "row": 4
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "FORMULA",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": "=C3-C4",
+          "merge_range": null,
+          "number_format": "General",
+          "value": null
+        },
+        {
+          "address": {
+            "col": 3,
+            "row": 4
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "FORMULA",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": "=D3-D4",
+          "merge_range": null,
+          "number_format": "General",
+          "value": null
+        },
+        {
+          "address": {
+            "col": 4,
+            "row": 4
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "FORMULA",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": "=E3-E4",
+          "merge_range": null,
+          "number_format": "General",
+          "value": null
+        },
+        {
+          "address": {
+            "col": 5,
+            "row": 4
+          },
+          "borders": {
+            "bottom": null,
+            "left": null,
+            "right": null,
+            "top": null
+          },
+          "comment": null,
+          "computed_value": null,
+          "data_type": "FORMULA",
+          "fill_color_rgb": null,
+          "font": {
+            "bold": true,
+            "color_rgb": null,
+            "italic": false,
+            "name": null,
+            "size": null
+          },
+          "formula": "=F3-F4",
+          "merge_range": null,
+          "number_format": "General",
+          "value": null
+        }
+      ],
+      "n_cols": 6,
+      "n_rows": 5,
+      "name": "Budget"
+    }
+  ]
+}

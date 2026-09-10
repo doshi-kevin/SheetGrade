@@ -81,5 +81,7 @@ class Sheet:
 class Workbook:
     sheets: tuple[Sheet, ...]
     defined_names: tuple[DefinedName, ...] = ()
-    # dependency_graph deferred to Part 2: depends on the string-vs-AST formula
-    # decision, which is itself a separate call to make when the reader is built.
+    # Maps "SheetName!F3" -> the raw reference tokens found in that cell's formula,
+    # e.g. {"B3:E3"} or {"B3", "B4"}. Extracted by regex, not a full formula AST —
+    # that AST is built later (Part 14), on top of the parser written by hand then.
+    dependency_graph: dict[str, frozenset[str]] = field(default_factory=dict)

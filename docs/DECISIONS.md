@@ -30,3 +30,13 @@ Every non-obvious choice: what was picked, what was rejected, the number or reas
 - Brief-driven rubrics. Rubric YAML remains the machine-checkable source of truth, but is now drafted by retrieval over the assignment brief and confirmed by a human, rather than hand-authored. The LLM never auto-applies a rubric.
 - No fine-tuning. Explicitly rejected for this project: 8 GB VRAM, no labelled corpus, and retrieval plus prompting is not yet the bottleneck. Revisit only if measurement shows otherwise.
 - Abstention over guessing. Low-confidence alignments escalate to a human rather than producing a score. Accepts that the tool will punt on messy submissions; the alternative — confidently grading the wrong cells — is the exact failure this project exists to fix.
+
+## Part 2: formula stored as string now, AST deferred to Part 14
+- Picked: `Cell.formula` stays a raw string; a lightweight regex-based dependency graph (which cells a formula references) is built now without needing a full parser
+- Rejected: building a full formula AST in Part 2, per the plan's own "answer: AST" note
+- Reason: the recursive-descent parser is one of the 5 primitives Kevin hand-writes, timed right before Part 14 (formula equivalence) — building the AST now would mean Claude writes it, then he rewrites a version of it later; storing a string costs nothing today and doesn't block the dependency graph
+
+## Part 2: reader normalizes openpyxl's value types at the boundary, fails loudly on unsupported ones
+- Picked: a `_normalize_value` function converts `Decimal`→float, `date`/`time`→ISO string, `timedelta`→str, and raises `NotImplementedError` for rich text and array/data-table formulas
+- Rejected: widening `CellValue` to cover every type openpyxl's stubs allow
+- Reason: keeps the IR contract simple and typed everywhere else in the pipeline; per the plan's testing philosophy, an unsupported input should fail loudly at the boundary, not get silently mis-typed three modules downstream
