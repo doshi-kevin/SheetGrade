@@ -54,7 +54,7 @@ def read_xlsx(path: Path) -> Workbook:
         DefinedName(name=name, refers_to=dn.value) for name, dn in formula_wb.defined_names.items()
     )
 
-    dependency_graph = _build_dependency_graph(sheets)
+    dependency_graph = build_dependency_graph(sheets)
 
     return Workbook(sheets=sheets, defined_names=defined_names, dependency_graph=dependency_graph)
 
@@ -184,17 +184,17 @@ def _merge_range_containing(address: CellAddress, merge_ranges: set[str]) -> str
     return None
 
 
-def _build_dependency_graph(sheets: tuple[Sheet, ...]) -> dict[str, frozenset[str]]:
+def build_dependency_graph(sheets: tuple[Sheet, ...]) -> dict[str, frozenset[str]]:
     graph: dict[str, frozenset[str]] = {}
     for sheet in sheets:
         for cell in sheet.cells.values():
             if cell.formula is None:
                 continue
-            key = f"{sheet.name}!{_address_to_a1(cell.address)}"
+            key = f"{sheet.name}!{address_to_a1(cell.address)}"
             refs = frozenset(_REF_PATTERN.findall(cell.formula))
             graph[key] = refs
     return graph
 
 
-def _address_to_a1(address: CellAddress) -> str:
+def address_to_a1(address: CellAddress) -> str:
     return f"{get_column_letter(address.col + 1)}{address.row + 1}"

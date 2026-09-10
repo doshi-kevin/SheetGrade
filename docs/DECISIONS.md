@@ -40,3 +40,13 @@ Every non-obvious choice: what was picked, what was rejected, the number or reas
 - Picked: a `_normalize_value` function converts `Decimal`→float, `date`/`time`→ISO string, `timedelta`→str, and raises `NotImplementedError` for rich text and array/data-table formulas
 - Rejected: widening `CellValue` to cover every type openpyxl's stubs allow
 - Reason: keeps the IR contract simple and typed everywhere else in the pipeline; per the plan's testing philosophy, an unsupported input should fail loudly at the boundary, not get silently mis-typed three modules downstream
+
+## Part 3: built all 13 mutation types now, not a core subset
+- Picked: implement the full taxonomy from PROJECT_PLAN.md immediately, rather than 5 now / 8 later
+- Rejected: a smaller "core 5" first pass (one per failure category), which was the recommended option
+- Reason: Kevin's call under the 2-week target — full taxonomy now means no later part blocks on adding a missing mutation type, at the cost of more code to review before any of it has been exercised by a real downstream part
+
+## Part 3: structural mutations move cell positions, not formula text
+- Picked: insert_column/delete_row/reorder_columns/shift_region/split_table shift where cells sit in the grid, but leave every formula's text untouched
+- Rejected: rewriting formula references to match the new layout (e.g. `=B3-B4` becoming `=C3-C4` after a column is inserted before B)
+- Reason: correctly rewriting a formula reference requires understanding formula text structurally, which needs the parser deferred to Part 14; the mutations are still useful now for testing structural detection and alignment (Parts 5-13), which don't depend on formula correctness
