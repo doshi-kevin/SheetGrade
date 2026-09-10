@@ -211,6 +211,10 @@ If his answer is wrong or vague, don't just correct it. Ask one narrower questio
 
 If he says "I don't know" to all three, that's a signal you explained badly. Re-explain from a different angle — an analogy, a smaller example, a drawing in text — rather than repeating yourself louder.
 
+### Keep walkthrough docs short
+
+`docs/walkthroughs/*.md` are read documents, not audit logs. Lead with the one idea and a concrete before/after example (code block, not prose), then the decision, then the open thread, then the checkpoint questions. Skip the tier-by-tier preamble and the Tier 2/3 discussion entirely — those exist to guide how *you* explain, not as content he needs to read. If a walkthrough runs long, cut explanation, not the example.
+
 ### When he is short on time
 
 Don't quietly revert to batch-and-report. Say instead:
