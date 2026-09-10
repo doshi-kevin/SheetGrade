@@ -45,7 +45,7 @@ def build() -> Workbook:
         ws.cell(row=r, column=6, value=f"=SUM({first_col}{r}:{last_col}{r})")
 
     # Profit row: formula referencing the two rows above it — the kind of
-    # dependency the Part 16 scoring graph eventually walks.
+    # dependency the Part 19 scoring graph eventually walks.
     profit_row = 5
     ws.cell(row=profit_row, column=1, value="Profit")
     for c in range(2, 7):

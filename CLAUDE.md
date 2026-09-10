@@ -4,7 +4,7 @@
 
 - Answer on point. No filler, no buzzwords.
 - If a technical term or buzzword is unavoidable, define it in one clause right where it's used.
-- For every non-trivial thing done or proposed, state the reason twice: why it matters **now** (this task) and why it matters **later** (the project, or his understanding of it).
+- Explain the reason behind non-trivial things — briefly, as part of the flow. No forced "short-term / long-term" split every time; just teach the concept without dragging out the chat.
 
 ## Read this first
 
@@ -18,13 +18,21 @@ Optimize for his understanding per hour. Not lines of code per hour.
 
 ## Project
 
-`sheetgrade` — open-source, structure-aware grading of spreadsheet submissions against an instructor answer key, where the two workbooks do **not** share the same structure.
+**Sheetgrade** grades spreadsheet submissions against an instructor's answer key when the two workbooks do not share the same structure.
 
-The hard problem is **alignment**, not comparison. Existing tools compare by cell address and break the moment a student inserts a column or shifts a table. The value of this project lives in region detection, semantic labeling, and column/row alignment under insertions, deletions, renames and reordering.
+Existing autograders compare by cell address. That assumes the student's file is shaped identically to the key, so the moment a student reorders a column, inserts a helper row, or renames a header, those tools silently grade the wrong cells and report the result with full confidence. This is the failure that makes spreadsheet autograding unusable in practice.
 
-Second pillar: grade the **formula dependency graph**, not raw values, so a correct method with one wrong input is penalized once rather than on every downstream cell.
+The project rests on two bets.
 
-See `PROJECT_PLAN.md` for the 20 parts. Work strictly in order unless he explicitly overrides.
+**First: the hard problem is correspondence, not comparison.** Before anything can be graded, the system must work out which regions, columns and rows of two differently-shaped workbooks map to each other, under insertions, deletions, reorderings and renames. This is a genuine algorithms problem — assignment problems, sequence alignment, connected components — and it is where the product's value lives. Comparison after alignment is bookkeeping.
+
+**Second: grade the formula dependency graph, not the values.** A workbook is a program. A student who used the correct method but typed one wrong input should lose points once, not on every downstream cell that inherited the error. Carry-through handling is what makes the grader pedagogically fair rather than mechanically strict, and it is the behaviour professors notice first.
+
+A third property is a hard requirement rather than a bet: **the system abstains rather than guessing.** Every alignment carries a confidence, and below threshold the region is escalated to a human instead of graded. In grading, a confident wrong answer is far worse than "I need a person here."
+
+Everything else — embeddings for header matching, retrieval over assignment briefs, misconception clustering, LLM-written feedback, learned grading preferences — exists in service of those three properties. None of it is the point on its own.
+
+See `PROJECT_PLAN.md` for the 24 parts. Work strictly in order unless he explicitly overrides.
 
 ---
 
@@ -60,11 +68,11 @@ Ask him to answer them. If he can't answer #3, remind him that means you made th
 
 These specific pieces he writes himself, no AI assistance, and you review afterwards like a code reviewer rather than an author:
 
-- Cosine similarity and top-k search over a numpy array (before part 7)
-- Needleman–Wunsch row alignment (part 11)
-- The Hungarian assignment cost matrix construction (part 10)
-- Reciprocal rank fusion (if used in part 17)
-- A recursive descent parser for a tiny formula subset (before part 13)
+- Cosine similarity and top-k search over a numpy array (before part 8)
+- Needleman–Wunsch row alignment (part 12)
+- The Hungarian assignment cost matrix construction (part 11)
+- Reciprocal rank fusion (part 17)
+- A recursive descent parser for a tiny formula subset (before part 14)
 
 When he reaches one of these, say so and hold the line. Offer to explain the algorithm on a whiteboard-in-text level, offer to write the tests, but do not write the implementation.
 
@@ -123,7 +131,7 @@ When he says he's short on time, do **not** silently drop the learning practices
 - Never let more than two parts sit in that queue. If a third arrives, say so and insist on a walkthrough session before continuing.
 - Boring infrastructure (CI config, packaging, lint setup) is always fair game to do fully yourself with no walkthrough. Algorithms never are.
 
-The distinction: he must deeply understand parts 5–16. Everything else can be delegated.
+The distinction: he must deeply understand parts 5–19. Everything else can be delegated.
 
 ---
 
