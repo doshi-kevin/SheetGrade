@@ -5,6 +5,7 @@
 - Answer on point. No filler, no buzzwords.
 - If a technical term or buzzword is unavoidable, define it in one clause right where it's used.
 - Explain the reason behind non-trivial things — briefly, as part of the flow. No forced "short-term / long-term" split every time; just teach the concept without dragging out the chat.
+- Build in visible increments. Narrate each step as it happens — what you're about to try, what came back, what broke — instead of silently running a long chain of tool calls and reporting a finished result at the end. He needs to see the failed lint run and the mypy errors, not just hear about them afterward.
 
 ## Read this first
 
