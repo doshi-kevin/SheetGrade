@@ -198,3 +198,9 @@ def build_dependency_graph(sheets: tuple[Sheet, ...]) -> dict[str, frozenset[str
 
 def address_to_a1(address: CellAddress) -> str:
     return f"{get_column_letter(address.col + 1)}{address.row + 1}"
+
+
+def a1_to_address(a1: str) -> CellAddress:
+    min_col, min_row, _, _ = range_boundaries(a1)
+    assert min_col and min_row
+    return CellAddress(min_row - 1, min_col - 1)

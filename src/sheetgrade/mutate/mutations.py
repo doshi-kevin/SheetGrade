@@ -25,7 +25,7 @@ from openpyxl.utils import get_column_letter, range_boundaries
 from sheetgrade.ir import Cell, CellAddress, CellType, Workbook
 from sheetgrade.mutate.helpers import get_sheet, replace_sheet, set_cell
 from sheetgrade.mutate.manifest import MutationRecord
-from sheetgrade.reader import address_to_a1, build_dependency_graph
+from sheetgrade.reader import a1_to_address, address_to_a1, build_dependency_graph
 
 _RECOLOUR_PALETTE = ("FFFF0000", "FF00B050", "FF0070C0", "FFFFFF00")
 _SCRATCH_TEXTS = ("scratch calc", "workspace - ignore", "notes to self", "temp")
@@ -322,7 +322,7 @@ def wrong_input_correct_method(
     numeric_inputs = {
         a1: refs
         for a1, refs in reverse.items()
-        for addr in [_a1_to_address(a1)]
+        for addr in [a1_to_address(a1)]
         if addr in sh.cells and sh.cells[addr].data_type is CellType.NUMBER
     }
     if not numeric_inputs:
@@ -330,7 +330,7 @@ def wrong_input_correct_method(
 
     if input_address is None:
         input_a1 = rng.choice(sorted(numeric_inputs))
-        input_address = _a1_to_address(input_a1)
+        input_address = a1_to_address(input_a1)
     else:
         input_a1 = address_to_a1(input_address)
 
@@ -355,12 +355,6 @@ def wrong_input_correct_method(
         },
     )
     return replace_sheet(workbook, sheet, new_sheet), record
-
-
-def _a1_to_address(a1: str) -> CellAddress:
-    min_col, min_row, _, _ = range_boundaries(a1)
-    assert min_col and min_row
-    return CellAddress(min_row - 1, min_col - 1)
 
 
 MUTATIONS: dict[str, Callable[..., tuple[Workbook, MutationRecord]]] = {
