@@ -75,3 +75,43 @@ Every non-obvious choice: what was picked, what was rejected, the number or reas
 - Picked: `infer_column_type` decides NUMERIC vs CURRENCY etc. from `Cell.data_type` across the column; the `number_format` string is only consulted afterward, as a tiebreaker between NUMERIC and CURRENCY once "numeric" is already established
 - Rejected: reading the number_format string as the primary signal for type
 - Reason: caught directly in our own fixture — the Q1 column is formatted `"$#,##0"` and the Total column is formatted `"General"`, even though both hold the same kind of money value; trusting the format string would call identical data two different types depending on whether the professor bothered to format it
+
+## Part 7: routing table is static and hand-set, not measured yet
+- Picked: `ROUTING_TABLE` in `src/sheetgrade/infer/router.py` maps each call site to LOCAL or HOSTED once, as a flat dict -- no live fallback or runtime accuracy check
+- Rejected: a runtime fallback (try local, escalate to hosted on low confidence or failure) -- harder to write a reliable "same input, same output" determinism test against, since the route itself could change between two runs of the same call
+- Reason: today's values follow the 2026-09-10 scope-change reasoning (call volume + stakes), since no real classifier exists yet to measure against the Part 4 harness; each entry should be revisited once Part 9 exists and has real accuracy numbers
+
+## Part 7: two sampling temperatures, not one shared value
+- Picked: `EXTRACTION_TEMPERATURE = 0.0` and `PROSE_TEMPERATURE = 0.7` as separate named constants in `src/sheetgrade/infer/sampling.py`, mapped per call site
+- Rejected: a single shared temperature for every call site
+- Reason: classification call sites need the same input to always produce the same label (the required determinism test would fail intermittently otherwise); prose call sites (Part 21, not built yet) need some variation so feedback doesn't read identically for every student -- 0.7 sits in the typical 0.6-0.9 "coherent but not robotic" range but has no real call site to measure against yet
+
+## Part 7: model choice makes the plan's "sequential loading" assumption moot
+- Picked: `llama3.2:3b` (Q4_K_M, ~2.6GB) and `nomic-embed-text` (F16, ~0.3GB) resident in VRAM at the same time
+- Rejected: sequentially loading/unloading models, which PROJECT_PLAN.md's Part 7 text assumed would be required on an 8GB card
+- Reason: that assumption budgeted for a larger (7-8B) generation model, written before any model was actually chosen; measured on this machine (`nvidia-smi`), both models together use ~2.9GB of 8GB, leaving ~4.8GB free -- see `docs/vram_budget.md`
+
+## Part 8: hand-write rule overridden for cosine similarity / top-k, by explicit choice
+- Picked: Claude wrote `src/sheetgrade/label/similarity.py` directly, overriding the 2026-09-10 "hand-write primitives via live pairing" decision for this one primitive
+- Rejected: the paired-writing approach (Claude writes the spec/tests, Kevin writes the function body), offered once and explicitly declined
+- Reason: Kevin's call, made knowingly after the trade-off was explained -- logged here per CLAUDE.md's own rule that an algorithm implementation built under time pressure must be queued in TO_UNDERSTAND.md and walked through later, not silently skipped
+
+## Part 8: shipped strategy is HYBRID, chosen by measurement with a stated caveat
+- Picked: `DEFAULT_STRATEGY = MatchStrategy.HYBRID` in `src/sheetgrade/label/matching.py`
+- Rejected: `STRING_ONLY`, which measured highest (94.3% vs hybrid's 88.6% on `tests/fixtures/header_pairs.json`) but only because most "true match" pairs in that fixture are exactly the synonyms hand-typed into `SYNONYM_GROUPS` -- it has no way to generalize to a real synonym neither of us anticipated (e.g. "Turnover" for "Revenue"). `EMBEDDING_ONLY` is rejected outright, not just for this fixture: measured cosine scores show "Q1" vs "Q2" (should not match) scoring higher (0.748) than several genuine synonyms like "Revenue" vs "Rev." (0.455) -- the score ranges overlap, so no threshold could separate them correctly
+- Reason: Kevin's call, given the trade-off -- string-only wins today's biased benchmark but can't improve; hybrid is weaker on this benchmark but has a real path to handling wording nobody pre-typed. `MATCH_THRESHOLD` and `HYBRID_EMBEDDING_WEIGHT` stay untuned placeholders until the fixture set is expanded with synonyms neither of us listed by hand -- the current numbers can't be trusted to generalize
+
+## Part 9: two classifiers kept side by side, neither replacing the other
+- Picked: `classify_region_rules` (free, structural, no model call) and `classify_region_llm` (uses the Part 7 local model) both exist in `src/sheetgrade/label/roles.py`; `roles_eval.py`'s confusion matrix measures both, rather than shipping one as "the" classifier
+- Rejected: picking one now and deferring the other to "later if needed"
+- Reason: a real 4-example run showed each one gets a *different* case wrong at the same 75% overall accuracy (rules mislabels the mixed given-data/calculation Budget table as GIVEN_INPUT vs the LLM's FINAL_ANSWER guess; both are defensible readings of a genuinely mixed region) -- an aggregate number would have hidden that; a confusion matrix didn't
+
+## Part 9: `generate_choice` added to OllamaBackend instead of reusing `generate`
+- Picked: a new `ChoiceBackend` protocol (`generate_choice`, constrained to a fixed set of words via Ollama's `format` JSON-schema field) alongside Part 7's existing `Backend` protocol, not a change to `generate`'s signature
+- Rejected: extending `generate`'s existing signature with an optional output-format parameter
+- Reason: Part 7 flagged that a plain prompt ("answer in one word") doesn't reliably produce one word -- `format` genuinely constrains what the model is allowed to emit, which is stronger than asking nicely; keeping it a separate protocol meant Part 7's existing fakes and call sites didn't need to change
+
+## Part 9: rules-classifier ordering bug found by actually running it, not assumed correct
+- Picked: check "is this region all text?" before checking "is this region small?" in `classify_region_rules`
+- Rejected: the original order (size check first), which looked reasonable on paper
+- Reason: running the classifier against a real 6-line instructions example (not just unit tests written to match the code) showed it misclassified as SCRATCH_WORK, because a short block of pure prose also happens to be small -- caught by reading the actual output, per CLAUDE.md's "read the data" rule, not by review of the code itself
