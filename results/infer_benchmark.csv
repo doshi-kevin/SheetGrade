@@ -1,0 +1,2 @@
+timestamp,git_sha,config,n_prompts,avg_tokens_per_second,avg_latency_seconds
+2026-09-11T16:33:17.182143+00:00,57d8563,"llama3.2:3b Q4_K_M, EXTRACTION_TEMPERATURE=0.0, RTX 5060 Laptop 8GB",5,16.69,2.512
