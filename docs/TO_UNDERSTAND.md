@@ -6,4 +6,8 @@ a third arrives, we stop and do a walkthrough before continuing.
 
 ---
 
-(empty)
+## Part 8 — `src/sheetgrade/label/similarity.py`: cosine similarity + top-k search
+Written by Claude 2026-09-12, not hand-written by Kevin as CLAUDE.md's primitive list calls for.
+Overridden by Kevin's explicit choice (see DECISIONS.md), not a time-pressure default. Still queued
+here per the rule that algorithm code never skips a walkthrough, even when time-pressured or
+deliberately delegated. Walk through before a second algorithm-primitive item lands in this queue.
