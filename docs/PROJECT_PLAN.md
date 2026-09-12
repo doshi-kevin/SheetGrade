@@ -38,7 +38,7 @@ Target from part 4 onward: every part ships with tests, and CI blocks merge on c
 ## Stack (storage-light)
 
 - **Python 3.12**, `openpyxl` for styles/formulas, `python-calamine` or `pandas` for fast value reads, `formulas`/`pycel` for recalculation
-- **Local inference (Part 7)** for high-volume, low-stakes calls — Ollama or llama.cpp, a small quantized generation model plus the embedding model, on an 8 GB laptop RTX 5070. Hosted APIs stay reserved for low-volume, quality-critical calls (feedback generation, Part 21).
+- **Local inference (Part 7)** for high-volume, low-stakes calls — Ollama or llama.cpp, a small quantized generation model plus the embedding model, on an 8 GB laptop RTX 5060. Hosted APIs stay reserved for low-volume, quality-critical calls (feedback generation, Part 21).
 - **SQLite + `sqlite-vec`** for the misconception store (Part 20) — zero infrastructure, low volume. **Qdrant via Docker** for requirement retrieval (Part 17), where hybrid dense+sparse search and payload filtering are required and sqlite-vec doesn't reach.
 - `pytest`, `hypothesis`, `ruff`, `mypy`, GitHub Actions
 
@@ -88,7 +88,7 @@ Target from part 4 onward: every part ships with tests, and CI blocks merge on c
 ### Part 7 — Local inference layer
 **Build:** a local inference runtime (Ollama or llama.cpp) running a small quantized generation model plus the embedding model; a VRAM budget document; a routing layer that decides local vs hosted per call site; a throughput benchmark; sampling-parameter policy per call site (schema-constrained extraction vs prose generation want different settings).
 **Test:** throughput/latency benchmark committed to `results.csv`; the router unit-tested against a fake backend; a determinism test confirming classification output is stable across runs at the chosen settings.
-**Learn:** quantization and VRAM budgeting — why an 8 GB card (RTX 5070, Blackwell sm_120, needs a PyTorch build against CUDA 12.8+) forces sequential loading: budget ~0.6 GB per billion parameters at Q4 plus 20–30% KV-cache headroom, and the embedding model, generation model and any reranker can't all be resident at once.
+**Learn:** quantization and VRAM budgeting — why an 8 GB card (RTX 5060 Laptop, Blackwell sm_120, needs a PyTorch build against CUDA 12.8+) forces sequential loading: budget ~0.6 GB per billion parameters at Q4 plus 20–30% KV-cache headroom, and the embedding model, generation model and any reranker can't all be resident at once.
 **Decide:** which quantized model(s) actually fit the budget, and the local-vs-hosted routing rule per call site.
 
 ### Part 8 — Semantic labeling
